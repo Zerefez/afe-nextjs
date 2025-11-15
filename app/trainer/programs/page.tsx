@@ -6,6 +6,7 @@ import { usersService } from '@/lib/services/users';
 import { workoutProgramsService } from '@/lib/services/workoutPrograms';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { ApiError } from '@/lib/apiClient';
 
 export default async function ProgramsListPage() {
   const session = await getSession();
@@ -15,10 +16,18 @@ export default async function ProgramsListPage() {
     redirect('/login');
   }
 
-  const [programs, clients] = await Promise.all([
-    workoutProgramsService.getByTrainer(token),
-    usersService.getClients(token),
-  ]);
+  let programs, clients;
+  try {
+    [programs, clients] = await Promise.all([
+      workoutProgramsService.getByTrainer(token),
+      usersService.getClients(token),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect('/logout');
+    }
+    throw error;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black">

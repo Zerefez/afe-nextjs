@@ -1,11 +1,12 @@
+import { Button } from '@/app/components/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/Card';
+import { Navbar } from '@/app/components/Navbar';
+import { ApiError } from '@/lib/apiClient';
 import { getSession, getToken } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 import { usersService } from '@/lib/services/users';
 import { workoutProgramsService } from '@/lib/services/workoutPrograms';
-import { Navbar } from '@/app/components/Navbar';
-import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/Card';
 import Link from 'next/link';
-import { Button } from '@/app/components/Button';
+import { redirect } from 'next/navigation';
 
 export default async function TrainerDashboard() {
   const session = await getSession();
@@ -16,10 +17,18 @@ export default async function TrainerDashboard() {
   }
 
   // Fetch trainer's clients and programs
-  const [clients, programs] = await Promise.all([
-    usersService.getClients(token),
-    workoutProgramsService.getByTrainer(token),
-  ]);
+  let clients, programs;
+  try {
+    [clients, programs] = await Promise.all([
+      usersService.getClients(token),
+      workoutProgramsService.getByTrainer(token),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect('/logout');
+    }
+    throw error;
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">

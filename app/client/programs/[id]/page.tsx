@@ -5,6 +5,7 @@ import { Navbar } from '@/app/components/Navbar';
 import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/Card';
 import Link from 'next/link';
 import { Button } from '@/app/components/Button';
+import { ApiError } from '@/lib/apiClient';
 
 export default async function ClientProgramDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getSession();
@@ -16,7 +17,16 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
 
   const { id } = await params;
   const programId = parseInt(id);
-  const program = await workoutProgramsService.getById(programId, token);
+  
+  let program;
+  try {
+    program = await workoutProgramsService.getById(programId, token);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect('/logout');
+    }
+    throw error;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

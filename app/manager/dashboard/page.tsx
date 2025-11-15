@@ -58,6 +58,11 @@ export default function ManagerDashboard() {
         });
         if (!response.ok) {
           if (response.status === 401) {
+            // Clear session before redirecting
+            await fetch('/api/auth/logout', {
+              method: 'POST',
+              credentials: 'include',
+            });
             window.location.href = '/login';
             return;
           }

@@ -6,6 +6,7 @@ import { Navbar } from '@/app/components/Navbar';
 import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/Card';
 import Link from 'next/link';
 import { Button } from '@/app/components/Button';
+import { ApiError } from '@/lib/apiClient';
 
 export default async function ClientDashboard() {
   const session = await getSession();
@@ -16,10 +17,18 @@ export default async function ClientDashboard() {
   }
 
   // Fetch client's programs and trainer info
-  const [programs, trainer] = await Promise.all([
-    workoutProgramsService.getAll(token),
-    usersService.getTrainer(token).catch(() => null),
-  ]);
+  let programs, trainer;
+  try {
+    [programs, trainer] = await Promise.all([
+      workoutProgramsService.getAll(token),
+      usersService.getTrainer(token).catch(() => null),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirect('/logout');
+    }
+    throw error;
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
