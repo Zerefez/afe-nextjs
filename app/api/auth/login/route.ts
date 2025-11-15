@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { usersService } from '@/lib/services/users';
-import { setSession } from '@/lib/auth';
-import { api } from '@/lib/apiClient';
+import { userService } from '@/shared/services';
+import { setSession } from '@/shared/lib/auth';
+import { apiClient } from '@/shared/lib/api-client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Login and get JWT token
-    const tokenData = await usersService.login({ email, password });
+    const tokenData = await userService.login({ email, password });
 
     if (!tokenData.jwt) {
       return NextResponse.json(
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user details using the token
-    const users = await api.get<any[]>('/api/Users', tokenData.jwt);
+    const users = await apiClient.get<any[]>('/api/Users', tokenData.jwt);
     const currentUser = users.find((u: any) => u.email === email);
 
     if (!currentUser) {

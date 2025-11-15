@@ -1,6 +1,5 @@
+import { Button, Card, CardContent } from '@/shared/ui';
 import Link from 'next/link';
-import { Button } from './components/Button';
-import { Card, CardContent } from './components/Card';
 
 export default function NotFound() {
   return (
@@ -15,7 +14,7 @@ export default function NotFound() {
               Page Not Found
             </h3>
             <p className="text-gray-500 dark:text-gray-500 mb-8 text-[15px]">
-              The page you're looking for doesn't exist or has been moved.
+              The page you&apos;re looking for doesn&apos;t exist or has been moved.
             </p>
             <Link href="/">
               <Button>Return Home</Button>

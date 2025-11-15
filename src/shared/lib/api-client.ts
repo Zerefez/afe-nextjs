@@ -1,6 +1,9 @@
-// API client helper for authenticated requests
+/**
+ * API Client
+ * Centralized HTTP client for all API requests
+ */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://assignment2.swafe.dk';
+import { env } from '../config/env';
 
 export class ApiError extends Error {
   constructor(
@@ -32,7 +35,7 @@ async function apiRequest<T>(
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${env.apiBaseUrl}${endpoint}`;
 
   try {
     const response = await fetch(url, {
@@ -40,7 +43,6 @@ async function apiRequest<T>(
       headers,
     });
 
-    // Handle non-JSON responses
     const contentType = response.headers.get('content-type');
     let data;
     
@@ -67,7 +69,7 @@ async function apiRequest<T>(
   }
 }
 
-export const api = {
+export const apiClient = {
   get: <T>(endpoint: string, token?: string) =>
     apiRequest<T>(endpoint, { method: 'GET', token }),
   

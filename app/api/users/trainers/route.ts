@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
+import { getToken } from '@/shared/lib/auth';
+import { userService } from '@/shared/services';
 
 export async function GET() {
   try {
@@ -12,7 +12,7 @@ export async function GET() {
       );
     }
 
-    const users = await usersService.getAll(token);
+    const users = await userService.getAll(token);
     const trainers = users.filter(u => u.accountType === 'PersonalTrainer');
 
     return NextResponse.json(trainers);

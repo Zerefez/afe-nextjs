@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
+import { getToken } from '@/shared/lib/auth';
+import { userService } from '@/shared/services';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const user = await usersService.create(body, token);
+    const user = await userService.create(body, token);
 
     return NextResponse.json(user);
   } catch (error: any) {

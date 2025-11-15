@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { exercisesService } from '@/lib/services/exercises';
+import { getToken } from '@/shared/lib/auth';
+import { exerciseService } from '@/shared/services';
 
 export async function POST(
   request: NextRequest,
@@ -16,7 +16,7 @@ export async function POST(
     const { id } = await params;
     const programId = parseInt(id);
 
-    const exercise = await exercisesService.addToProgram(programId, body, token);
+    const exercise = await exerciseService.addToProgram(programId, body, token);
 
     return NextResponse.json(exercise);
   } catch (error: any) {

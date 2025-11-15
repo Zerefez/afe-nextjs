@@ -1,5 +1,5 @@
-import { getSession, getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
+import { getSession, getToken } from '@/shared/lib/auth';
+import { userService } from '@/shared/services';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -14,8 +14,8 @@ export async function GET() {
       );
     }
 
-    // Fetch all users using the usersService
-    const users = await usersService.getAll(token);
+    // Fetch all users using the userService
+    const users = await userService.getAll(token);
 
     // Transform API response to match our interface
     const transformedUsers = users.map((user: any) => ({

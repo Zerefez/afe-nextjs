@@ -1,34 +1,11 @@
-import { getSession, getToken } from '@/lib/auth';
-import { redirect } from 'next/navigation';
-import { workoutProgramsService } from '@/lib/services/workoutPrograms';
-import { usersService } from '@/lib/services/users';
-import { Navbar } from '@/app/components/Navbar';
-import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/Card';
+import { Navbar, Card, CardHeader, CardTitle, CardContent, Button } from '@/shared/ui';
+import { requireAuth } from '@/modules/auth';
+import { getClientDashboardData } from '@/modules/dashboard';
 import Link from 'next/link';
-import { Button } from '@/app/components/Button';
-import { ApiError } from '@/lib/apiClient';
 
 export default async function ClientDashboard() {
-  const session = await getSession();
-  const token = await getToken();
-
-  if (!session || !token) {
-    redirect('/login');
-  }
-
-  // Fetch client's programs and trainer info
-  let programs, trainer;
-  try {
-    [programs, trainer] = await Promise.all([
-      workoutProgramsService.getAll(token),
-      usersService.getTrainer(token).catch(() => null),
-    ]);
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 401) {
-      redirect('/logout');
-    }
-    throw error;
-  }
+  const { session, token } = await requireAuth();
+  const { programs, trainer } = await getClientDashboardData(token);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">

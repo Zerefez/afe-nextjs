@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { workoutProgramsService } from '@/lib/services/workoutPrograms';
+import { getToken } from '@/shared/lib/auth';
+import { programService } from '@/shared/services';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('Creating program with payload:', JSON.stringify(body, null, 2));
     
-    const program = await workoutProgramsService.create(body, token);
+    const program = await programService.create(body, token);
 
     return NextResponse.json(program);
   } catch (error: any) {

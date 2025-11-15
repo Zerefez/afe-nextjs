@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
+import { getToken } from '@/shared/lib/auth';
+import { userService } from '@/shared/services';
 
 export async function GET() {
   try {
@@ -12,7 +12,7 @@ export async function GET() {
       );
     }
 
-    const clients = await usersService.getClients(token);
+    const clients = await userService.getClients(token);
     return NextResponse.json(clients);
   } catch (error: any) {
     console.error('Fetch clients error:', error);

@@ -1,33 +1,11 @@
-import { Button } from '@/app/components/Button';
-import { Card, CardContent } from '@/app/components/Card';
-import { Navbar } from '@/app/components/Navbar';
-import { getSession, getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
-import { workoutProgramsService } from '@/lib/services/workoutPrograms';
+import { Button, Card, CardContent, Navbar } from '@/shared/ui';
+import { requireAuth } from '@/modules/auth';
+import { getProgramsList } from '@/modules/programs';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { ApiError } from '@/lib/apiClient';
 
 export default async function ProgramsListPage() {
-  const session = await getSession();
-  const token = await getToken();
-
-  if (!session || !token) {
-    redirect('/login');
-  }
-
-  let programs, clients;
-  try {
-    [programs, clients] = await Promise.all([
-      workoutProgramsService.getByTrainer(token),
-      usersService.getClients(token),
-    ]);
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 401) {
-      redirect('/logout');
-    }
-    throw error;
-  }
+  const { session, token } = await requireAuth();
+  const { programs, clients } = await getProgramsList(token);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black">

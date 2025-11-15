@@ -1,38 +1,15 @@
-import { Button } from '@/app/components/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/Card';
-import { Navbar } from '@/app/components/Navbar';
-import { getSession, getToken } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
-import { workoutProgramsService } from '@/lib/services/workoutPrograms';
+import { Button, Card, CardContent, CardHeader, CardTitle, Navbar } from '@/shared/ui';
+import { requireAuth } from '@/modules/auth';
+import { getProgramDetails } from '@/modules/programs';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import ExerciseManager from './ExerciseManager';
 import ProgramHeader from './ProgramHeader';
-import { ApiError } from '@/lib/apiClient';
 
 export default async function ProgramDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession();
-  const token = await getToken();
-
-  if (!session || !token) {
-    redirect('/login');
-  }
-
+  const { session, token } = await requireAuth();
   const { id } = await params;
   const programId = parseInt(id);
-  
-  let program, clients, assignedClient;
-  try {
-    program = await workoutProgramsService.getById(programId, token);
-    // Fetch clients for assignment dropdown
-    clients = await usersService.getClients(token);
-    assignedClient = clients.find(c => c.userId === program.clientId);
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 401) {
-      redirect('/logout');
-    }
-    throw error;
-  }
+  const { program, clients, assignedClient } = await getProgramDetails(programId, token);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black">

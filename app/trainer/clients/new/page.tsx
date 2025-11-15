@@ -1,8 +1,6 @@
 "use client";
 
-import { Button } from '@/app/components/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/Card';
-import { Input } from '@/app/components/Input';
+import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@/shared/ui';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

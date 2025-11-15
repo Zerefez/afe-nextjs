@@ -1,4 +1,5 @@
-import { getSession } from "@/lib/auth";
+import { getSession } from "@/shared/lib/auth";
+import { getAccountTypeRoute } from "@/modules/auth";
 import { redirect } from "next/navigation";
 import LoginPage from "./login/page";
 
@@ -7,14 +8,7 @@ export default async function Home() {
 
   // Redirect authenticated users to their respective dashboards
   if (session) {
-    const accountType = session.user.accountType?.toLowerCase();
-    if (accountType === 'manager') {
-      redirect('/manager/dashboard');
-    } else if (accountType === 'personaltrainer') {
-      redirect('/trainer/dashboard');
-    } else if (accountType === 'client') {
-      redirect('/client/dashboard');
-    }
+    redirect(getAccountTypeRoute(session.user.accountType));
   }
 
   return (

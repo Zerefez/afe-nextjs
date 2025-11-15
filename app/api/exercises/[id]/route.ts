@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from '@/lib/auth';
-import { exercisesService } from '@/lib/services/exercises';
+import { getToken } from '@/shared/lib/auth';
+import { exerciseService } from '@/shared/services';
 
 export async function PUT(
   request: NextRequest,
@@ -16,7 +16,7 @@ export async function PUT(
     const { id } = await params;
     const exerciseId = parseInt(id);
 
-    await exercisesService.update(exerciseId, body, token);
+    await exerciseService.update(exerciseId, body, token);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
@@ -42,7 +42,7 @@ export async function DELETE(
     const exerciseId = parseInt(id);
     
     console.log('Attempting to delete exercise:', exerciseId);
-    await exercisesService.delete(exerciseId, token);
+    await exerciseService.delete(exerciseId, token);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

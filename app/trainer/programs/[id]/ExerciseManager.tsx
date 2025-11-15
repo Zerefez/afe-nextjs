@@ -1,14 +1,13 @@
 "use client";
 
-import { Button } from '@/app/components/Button';
-import { Input, TextArea } from '@/app/components/Input';
+import { Button, Input, TextArea } from '@/shared/ui';
 import type {
   Exercise,
   ExerciseCardProps,
   ExerciseFormData,
   ExerciseFormProps,
   ExerciseManagerProps
-} from '@/lib/types/programs';
+} from '@/shared/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 

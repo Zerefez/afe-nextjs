@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken, getSession } from '@/lib/auth';
-import { usersService } from '@/lib/services/users';
+import { getToken, getSession } from '@/shared/lib/auth';
+import { userService } from '@/shared/services';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       personalTrainerId: session.user.userId,
     };
 
-    const user = await usersService.create(clientData, token);
+    const user = await userService.create(clientData, token);
 
     return NextResponse.json(user);
   } catch (error: any) {

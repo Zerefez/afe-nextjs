@@ -1,6 +1,10 @@
-// Auth utilities for cookie-based session management
+/**
+ * Authentication utilities
+ * Cookie-based session management
+ */
+
 import { cookies } from 'next/headers';
-import { Session } from './types';
+import { Session } from '../types/auth';
 
 const SESSION_COOKIE_NAME = 'fitness_session';
 const TOKEN_COOKIE_NAME = 'fitness_token';
@@ -30,7 +34,6 @@ export async function getToken(): Promise<string | null> {
 export async function setSession(session: Session): Promise<void> {
   const cookieStore = await cookies();
   
-  // Set session data (7 days expiry)
   cookieStore.set(SESSION_COOKIE_NAME, JSON.stringify(session.user), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -39,7 +42,6 @@ export async function setSession(session: Session): Promise<void> {
     path: '/',
   });
 
-  // Set token separately
   cookieStore.set(TOKEN_COOKIE_NAME, session.token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

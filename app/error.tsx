@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Button } from './components/Button';
-import { Card, CardContent } from './components/Card';
+import { Button, Card, CardContent } from '@/shared/ui';
 
 export default function Error({
   error,
@@ -28,7 +27,7 @@ export default function Error({
             </p>
             {error.message && (
               <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg">
-                <p className="text-[13px] text-gray-700 dark:text-gray-300 font-mono break-words">
+                <p className="text-[13px] text-gray-700 dark:text-gray-300 font-mono wrap-break-word">
                   {error.message}
                 </p>
               </div>

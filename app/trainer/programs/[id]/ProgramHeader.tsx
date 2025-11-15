@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
 import ProgramActions from './ProgramActions';
 import { useState } from 'react';
-import type { ProgramHeaderProps } from '@/lib/types/programs';
+import type { ProgramHeaderProps } from '@/shared/types';
 
 export default function ProgramHeader({ programId, initialProgram, clients, assignedClient }: ProgramHeaderProps) {
   const [program, setProgram] = useState(initialProgram);

@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from '@/app/components/Button';
-import { Input, Select, TextArea } from '@/app/components/Input';
-import type { ProgramActionsProps } from '@/lib/types/programs';
+import type { ProgramActionsProps } from '@/shared/types';
+import { Button, Input, Select, TextArea } from '@/shared/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 

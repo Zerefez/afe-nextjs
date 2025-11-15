@@ -1,35 +1,16 @@
-import { getSession, getToken } from '@/lib/auth';
-import { redirect } from 'next/navigation';
-import { workoutProgramsService } from '@/lib/services/workoutPrograms';
-import { Navbar } from '@/app/components/Navbar';
-import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/Card';
+import { requireAuth } from '@/modules/auth';
+import { getClientProgramDetails } from '@/modules/programs';
+import { Button, Card, CardContent, CardHeader, CardTitle, Navbar } from '@/shared/ui';
 import Link from 'next/link';
-import { Button } from '@/app/components/Button';
-import { ApiError } from '@/lib/apiClient';
 
 export default async function ClientProgramDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession();
-  const token = await getToken();
-
-  if (!session || !token) {
-    redirect('/login');
-  }
-
+  const { session, token } = await requireAuth();
   const { id } = await params;
   const programId = parseInt(id);
-  
-  let program;
-  try {
-    program = await workoutProgramsService.getById(programId, token);
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 401) {
-      redirect('/logout');
-    }
-    throw error;
-  }
+  const { program } = await getClientProgramDetails(programId, token);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-black">
       <Navbar user={session.user} />
       
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -62,7 +43,7 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
             ) : (
               <div className="space-y-4">
                 {program.exercises.map((exercise, index) => (
-                  <div key={exercise.exerciseId} className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
+                  <div key={exercise.exerciseId} className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                         {index + 1}. {exercise.name}
@@ -94,13 +75,6 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
             )}
           </CardContent>
         </Card>
-
-        {/* Printable view hint */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-500">
-            💡 Tip: Use your browser's print function (Ctrl/Cmd + P) to print this workout program
-          </p>
-        </div>
       </main>
     </div>
   );

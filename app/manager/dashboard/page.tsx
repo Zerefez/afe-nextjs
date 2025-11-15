@@ -1,17 +1,24 @@
 'use client';
 
-import { Button } from '@/app/components/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/Card';
-import { Navbar } from '@/app/components/Navbar';
-import {
-  DashboardData,
-  SortField,
-  SortOrder,
-  SortState,
-  User,
-} from '@/lib/types/manager';
+import { Button, Card, CardContent, CardHeader, CardTitle, Navbar } from '@/shared/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { UserDto } from '@/shared/types';
+
+type SortField = 'name' | 'email' | 'clients' | 'trainer';
+type SortOrder = 'asc' | 'desc';
+type SortState = { field: SortField; order: SortOrder };
+
+interface DashboardData {
+  user: UserDto;
+  trainers: UserDto[];
+  clients: UserDto[];
+  stats: {
+    trainers: number;
+    clients: number;
+    total: number;
+  };
+}
 
 function SortHeader({
   label,
@@ -21,7 +28,7 @@ function SortHeader({
 }: {
   label: string;
   field: SortField;
-  currentSort: { field: SortField; order: SortOrder };
+  currentSort: SortState;
   onSort: (field: SortField) => void;
 }) {
   const isActive = currentSort.field === field;
@@ -79,10 +86,10 @@ export default function ManagerDashboard() {
   }, []);
 
   const sortData = (
-    users: User[],
+    users: UserDto[],
     sort: SortState,
-    trainers?: User[]
-  ): User[] => {
+    trainers?: UserDto[]
+  ): UserDto[] => {
     const sorted = [...users];
 
     sorted.sort((a, b) => {
