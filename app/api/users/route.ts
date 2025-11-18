@@ -16,10 +16,11 @@ export async function POST(request: NextRequest) {
     const user = await userService.create(body, token);
 
     return NextResponse.json(user);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Create user error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to create user';
     return NextResponse.json(
-      { error: error.message || 'Failed to create user' },
+      { error: message },
       { status: 400 }
     );
   }

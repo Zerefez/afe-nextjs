@@ -14,10 +14,11 @@ export async function GET() {
 
     const clients = await userService.getClients(token);
     return NextResponse.json(clients);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Fetch clients error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to fetch clients';
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch clients' },
+      { error: message },
       { status: 500 }
     );
   }

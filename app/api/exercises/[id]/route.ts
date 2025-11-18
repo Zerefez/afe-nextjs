@@ -19,10 +19,11 @@ export async function PUT(
     await exerciseService.update(exerciseId, body, token);
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Update exercise error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to update exercise';
     return NextResponse.json(
-      { error: error.message || 'Failed to update exercise' },
+      { error: message },
       { status: 400 }
     );
   }
@@ -45,17 +46,19 @@ export async function DELETE(
     await exerciseService.delete(exerciseId, token);
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Delete exercise error:', error);
-    console.error('Error data:', error.data);
-    console.error('Error status:', error.status);
+    
+    const message = error instanceof Error ? error.message : 'Failed to delete exercise';
+    const status = (error && typeof error === 'object' && 'status' in error && typeof error.status === 'number') ? error.status : 400;
+    const data = (error && typeof error === 'object' && 'data' in error) ? error.data : undefined;
     
     return NextResponse.json(
       { 
-        error: error.message || 'Failed to delete exercise',
-        details: error.data || undefined 
+        error: message,
+        details: data
       },
-      { status: error.status || 400 }
+      { status }
     );
   }
 }

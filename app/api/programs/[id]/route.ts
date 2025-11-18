@@ -19,10 +19,11 @@ export async function PUT(
     await programService.update(programId, body, token);
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Update program error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to update program';
     return NextResponse.json(
-      { error: error.message || 'Failed to update program' },
+      { error: message },
       { status: 400 }
     );
   }
@@ -43,10 +44,11 @@ export async function DELETE(
     await programService.delete(programId, token);
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Delete program error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to delete program';
     return NextResponse.json(
-      { error: error.message || 'Failed to delete program' },
+      { error: message },
       { status: 400 }
     );
   }

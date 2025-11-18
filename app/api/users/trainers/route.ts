@@ -16,10 +16,11 @@ export async function GET() {
     const trainers = users.filter(u => u.accountType === 'PersonalTrainer');
 
     return NextResponse.json(trainers);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Fetch trainers error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to fetch trainers';
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch trainers' },
+      { error: message },
       { status: 500 }
     );
   }

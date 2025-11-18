@@ -6,8 +6,8 @@ import { Button } from './button';
 
 interface NavbarProps {
   user: {
-    firstName: string;
-    lastName: string;
+    firstName?: string;
+    lastName?: string;
     accountType: string;
   };
 }
@@ -49,7 +49,7 @@ export function Navbar({ user }: NavbarProps) {
           <div className="flex items-center space-x-8">
             <div className="flex flex-col items-end">
               <span className="text-[14px] font-medium text-[var(--color-text-primary)]">
-                {user.firstName} {user.lastName}
+                {user.firstName || ''} {user.lastName || ''}
               </span>
               <span className="text-[11px] text-[var(--color-text-tertiary)] uppercase tracking-wider font-medium">
                 {user.accountType}

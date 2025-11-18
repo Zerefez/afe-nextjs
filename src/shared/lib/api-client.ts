@@ -9,7 +9,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     message: string,
-    public data?: any
+    public data?: unknown
   ) {
     super(message);
     this.name = 'ApiError';
@@ -26,9 +26,8 @@ async function apiRequest<T>(
 ): Promise<T> {
   const { token, ...fetchOptions } = options;
 
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...fetchOptions.headers,
   };
 
   if (token) {
@@ -73,14 +72,14 @@ export const apiClient = {
   get: <T>(endpoint: string, token?: string) =>
     apiRequest<T>(endpoint, { method: 'GET', token }),
   
-  post: <T>(endpoint: string, body?: any, token?: string) =>
+  post: <T>(endpoint: string, body?: unknown, token?: string) =>
     apiRequest<T>(endpoint, {
       method: 'POST',
       body: body ? JSON.stringify(body) : undefined,
       token,
     }),
   
-  put: <T>(endpoint: string, body?: any, token?: string) =>
+  put: <T>(endpoint: string, body?: unknown, token?: string) =>
     apiRequest<T>(endpoint, {
       method: 'PUT',
       body: body ? JSON.stringify(body) : undefined,

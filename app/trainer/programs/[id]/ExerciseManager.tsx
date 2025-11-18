@@ -53,15 +53,15 @@ export default function ExerciseManager({ programId, initialExercises }: Exercis
     }),
   });
 
-  const handleApiCall = async (url: string, method: string, body?: any) => {
+  const handleApiCall = async (url: string, method: string, body?: unknown) => {
     const response = await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json' },
-      ...(body && { body: JSON.stringify(body) }),
+      ...(body ? { body: JSON.stringify(body) } : {}),
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorData = await response.json().catch(() => ({})) as { error?: string };
       throw new Error(errorData.error || `Failed to ${method.toLowerCase()} exercise`);
     }
 

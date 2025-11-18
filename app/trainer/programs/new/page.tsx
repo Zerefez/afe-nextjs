@@ -21,7 +21,7 @@ export default function CreateProgramPage() {
     clientId: '',
   });
   const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [clients, setClients] = useState<any[]>([]);
+  const [clients, setClients] = useState<Array<{ userId: number; firstName?: string; lastName?: string; email: string }>>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +47,7 @@ export default function CreateProgramPage() {
     ]);
   };
 
-  const updateExercise = (index: number, field: keyof Exercise, value: any) => {
+  const updateExercise = (index: number, field: keyof Exercise, value: string | number | null) => {
     const updated = [...exercises];
     updated[index] = { ...updated[index], [field]: value };
     setExercises(updated);
@@ -63,7 +63,22 @@ export default function CreateProgramPage() {
     setLoading(true);
 
     try {
-      const payload: any = {
+      interface ExercisePayload {
+        name: string;
+        description?: string | null;
+        sets: number;
+        repetitions: number;
+        time: string;
+      }
+      
+      interface ProgramPayload {
+        name: string;
+        description?: string;
+        exercises: ExercisePayload[];
+        clientId?: number;
+      }
+      
+      const payload: ProgramPayload = {
         name: formData.name,
         description: formData.description,
         exercises: exercises.map(ex => ({
@@ -162,7 +177,7 @@ export default function CreateProgramPage() {
 
                 {exercises.length === 0 ? (
                   <p className="text-[var(--color-text-secondary)] text-[14px]">
-                    No exercises added yet. Click "Add Exercise" to get started.
+                    No exercises added yet. Click &quot;Add Exercise&quot; to get started.
                   </p>
                 ) : (
                   <div className="space-y-4">

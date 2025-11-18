@@ -18,16 +18,19 @@ export async function POST(request: NextRequest) {
     const program = await programService.create(body, token);
 
     return NextResponse.json(program);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Create program error:', error);
-    console.error('Error details:', error.data || error);
+    
+    const message = error instanceof Error ? error.message : 'Failed to create program';
+    const status = (error && typeof error === 'object' && 'status' in error && typeof error.status === 'number') ? error.status : 400;
+    const data = (error && typeof error === 'object' && 'data' in error) ? error.data : undefined;
     
     return NextResponse.json(
       { 
-        error: error.message || 'Failed to create program',
-        details: error.data || undefined
+        error: message,
+        details: data
       },
-      { status: error.status || 400 }
+      { status }
     );
   }
 }

@@ -5,8 +5,8 @@
 export interface User {
   userId: number;
   email: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   accountType: 'Manager' | 'PersonalTrainer' | 'Client';
   personalTrainerId?: number | null;
 }

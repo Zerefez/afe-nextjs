@@ -18,8 +18,17 @@ export async function GET() {
     const users = await userService.getAll(token);
 
     // Transform API response to match our interface
-    const transformedUsers = users.map((user: any) => ({
-      userId: user.userId || user.id,
+    interface TransformedUser {
+      userId: number;
+      firstName?: string;
+      lastName?: string;
+      email: string;
+      accountType: string;
+      personalTrainerId?: number | null;
+    }
+    
+    const transformedUsers: TransformedUser[] = users.map((user) => ({
+      userId: user.userId,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -29,10 +38,10 @@ export async function GET() {
 
     // Separate by role
     const trainers = transformedUsers.filter(
-      (u: any) => u.accountType === 'PersonalTrainer'
+      (u) => u.accountType === 'PersonalTrainer'
     );
     const clients = transformedUsers.filter(
-      (u: any) => u.accountType === 'Client'
+      (u) => u.accountType === 'Client'
     );
 
     return NextResponse.json({

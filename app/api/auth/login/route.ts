@@ -26,15 +26,33 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user details using the token
-    const users = await apiClient.get<any[]>('/api/Users', tokenData.jwt);
-    const currentUser = users.find((u: any) => u.email === email);
+    interface ApiUser {
+      email: string;
+      userId: number;
+      accountType: string;
+      firstName?: string;
+      lastName?: string;
+      personalTrainerId?: number;
+    }
+    const users = await apiClient.get<ApiUser[]>('/api/Users', tokenData.jwt);
+    const apiUser = users.find((u) => u.email === email);
 
-    if (!currentUser) {
+    if (!apiUser) {
       return NextResponse.json(
         { error: 'User not found' },
         { status: 404 }
       );
     }
+
+    // Map API user to our User type with proper type casting
+    const currentUser = {
+      userId: apiUser.userId,
+      email: apiUser.email,
+      firstName: apiUser.firstName,
+      lastName: apiUser.lastName,
+      accountType: apiUser.accountType as 'Manager' | 'PersonalTrainer' | 'Client',
+      personalTrainerId: apiUser.personalTrainerId,
+    };
 
     // Set session cookie
     await setSession({
@@ -46,10 +64,11 @@ export async function POST(request: NextRequest) {
       success: true,
       user: currentUser,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Login error:', error);
+    const message = error instanceof Error ? error.message : 'Login failed';
     return NextResponse.json(
-      { error: error.message || 'Login failed' },
+      { error: message },
       { status: 401 }
     );
   }

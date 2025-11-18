@@ -19,10 +19,11 @@ export async function POST(
     const exercise = await exerciseService.addToProgram(programId, body, token);
 
     return NextResponse.json(exercise);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Add exercise error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to add exercise';
     return NextResponse.json(
-      { error: error.message || 'Failed to add exercise' },
+      { error: message },
       { status: 400 }
     );
   }

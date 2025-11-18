@@ -3,13 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';
 import ProgramActions from './ProgramActions';
 import { useState } from 'react';
-import type { ProgramHeaderProps } from '@/shared/types';
+import type { ProgramHeaderProps, WorkoutProgram } from '@/shared/types';
 
 export default function ProgramHeader({ programId, initialProgram, clients, assignedClient }: ProgramHeaderProps) {
   const [program, setProgram] = useState(initialProgram);
   const [client, setClient] = useState(assignedClient);
 
-  const handleProgramUpdate = (updatedProgram: any) => {
+  const handleProgramUpdate = (updatedProgram: WorkoutProgram) => {
     setProgram(updatedProgram);
     const newClient = clients.find(c => c.userId === updatedProgram.clientId);
     setClient(newClient);

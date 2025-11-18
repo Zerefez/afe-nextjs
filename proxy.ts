@@ -10,10 +10,6 @@ export function proxy(request: NextRequest) {
 
   const isAuthenticated = !!(sessionCookie && tokenCookie);
 
-  // Public paths that don't require authentication
-  const publicPaths = ['/', '/login', '/api/auth/login'];
-  const isPublicPath = publicPaths.some(path => pathname === path);
-
   // Redirect authenticated users away from login
   if (isAuthenticated && pathname === '/login') {
     return NextResponse.redirect(new URL('/', request.url));
@@ -43,7 +39,7 @@ export function proxy(request: NextRequest) {
       if (pathname.startsWith('/client') && accountType !== 'client') {
         return NextResponse.redirect(new URL('/', request.url));
       }
-    } catch (error) {
+    } catch {
       // If session parsing fails, redirect to login
       return NextResponse.redirect(new URL('/login', request.url));
     }

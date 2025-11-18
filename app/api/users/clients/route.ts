@@ -26,10 +26,11 @@ export async function POST(request: NextRequest) {
     const user = await userService.create(clientData, token);
 
     return NextResponse.json(user);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Create client error:', error);
+    const message = error instanceof Error ? error.message : 'Failed to create client';
     return NextResponse.json(
-      { error: error.message || 'Failed to create client' },
+      { error: message },
       { status: 400 }
     );
   }
