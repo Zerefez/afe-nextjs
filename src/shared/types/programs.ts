@@ -25,16 +25,23 @@ export interface ExerciseManagerProps {
 
 export interface ExerciseCardProps {
   exercise: Exercise;
-  index: number;
-  onDelete: (id: number) => void;
+  isEditing: boolean;
+  formData: ExerciseFormData;
+  loading: boolean;
   onEdit: (exercise: Exercise) => void;
+  onDelete: (id: number) => void;
+  onSave: (id: number) => void;
+  onCancel: () => void;
+  onFormChange: (formData: ExerciseFormData) => void;
 }
 
 export interface ExerciseFormProps {
-  programId: number;
-  onSuccess: (exercise: Exercise) => void;
-  editingExercise?: Exercise;
-  onCancelEdit?: () => void;
+  formData: ExerciseFormData;
+  loading: boolean;
+  title?: string;
+  onSave: () => void;
+  onCancel: () => void;
+  onFormChange: (formData: ExerciseFormData) => void;
 }
 
 export interface ExerciseFormData {

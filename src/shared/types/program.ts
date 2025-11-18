@@ -9,6 +9,8 @@ export interface Exercise {
   sets?: number;
   repetitions?: number;
   time?: string;
+  workoutProgramId?: number;
+  personalTrainerId?: number;
 }
 
 export interface WorkoutProgram {
