@@ -52,16 +52,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--color-background)] p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center">Sign In</CardTitle>
-          <p className="text-center text-gray-500 dark:text-gray-500 mt-3 text-[15px]">
+          <p className="text-center text-[var(--color-text-secondary)] mt-3 text-[15px]">
             Access your fitness dashboard
           </p>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               type="email"
               label="Email"
@@ -81,25 +81,25 @@ export default function LoginPage() {
               autoComplete="current-password"
             />
             {error && (
-              <div className="p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg">
-                <p className="text-[13px] text-gray-700 dark:text-gray-300">{error}</p>
+              <div className="p-4 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
+                <p className="text-[13px] text-[var(--color-text-primary)]">{error}</p>
               </div>
             )}
             <Button
               type="submit"
               variant="primary"
-              className="w-full mt-6"
+              className="w-full mt-8"
               disabled={loading}
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
           
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-            <p className="text-[13px] text-gray-500 dark:text-gray-500 mb-3">
+          <div className="mt-8 pt-6 border-t border-[var(--color-border)]">
+            <p className="text-[13px] text-[var(--color-text-secondary)] mb-3 font-medium">
               Test Accounts
             </p>
-            <ul className="text-[12px] text-gray-400 dark:text-gray-600 space-y-1.5 font-mono">
+            <ul className="text-[12px] text-[var(--color-text-tertiary)] space-y-2 font-mono">
               <li>Manager: prefix_boss@fitness.dk</li>
               <li>Trainer: prefix_m@fit.dk</li>
               <li>Client: prefix_c1@fit.dk</li>

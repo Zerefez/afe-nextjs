@@ -13,7 +13,7 @@ export default async function Home() {
 
   return (
     <>
-    <h1 className="text-3xl font-bold text-center mt-10 ">Fitness Tracker</h1>
+    <h1 className="text-[34px] font-semibold text-center mt-10 text-[var(--color-text-primary)] tracking-tight">Fitness Tracker</h1>
     <LoginPage />
     </>
   );

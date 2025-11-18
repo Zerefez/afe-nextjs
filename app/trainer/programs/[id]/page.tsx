@@ -12,10 +12,10 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   const { program, clients, assignedClient } = await getProgramDetails(programId, token);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black">
+    <div className="min-h-screen bg-[var(--color-background)]">
       <Navbar user={session.user} />
       
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-5xl mx-auto px-6 lg:px-8 py-8">
         <div className="mb-6">
           <Link href="/trainer/programs">
             <Button variant="ghost" size="sm">← Back to Programs</Button>

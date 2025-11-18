@@ -45,7 +45,7 @@ export default function CreateClientPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black p-4">
+    <div className="min-h-screen bg-[var(--color-background)] p-4">
       <div className="max-w-2xl mx-auto py-8">
         <div className="mb-6">
           <Link href="/trainer/dashboard">
@@ -58,7 +58,7 @@ export default function CreateClientPage() {
             <CardTitle>Add New Client</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="First Name"
@@ -92,8 +92,8 @@ export default function CreateClientPage() {
               />
 
               {error && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                  <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+                <div className="p-4 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
+                  <p className="text-[13px] text-[var(--color-text-primary)]">{error}</p>
                 </div>
               )}
 

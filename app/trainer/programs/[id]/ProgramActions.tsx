@@ -107,7 +107,7 @@ export default function ProgramActions({ programId, program, clients, onUpdate }
             </option>
           ))}
         </Select>
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-[13px] text-[var(--color-text-primary)]">{error}</p>}
         <div className="flex gap-2">
           <Button onClick={handleUpdate} disabled={loading} size="sm">
             {loading ? 'Saving...' : 'Save'}

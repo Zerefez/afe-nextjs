@@ -8,16 +8,16 @@ export default async function TrainerDashboard() {
   const { clients, programs } = await getTrainerDashboardData(token);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
+    <div className="min-h-screen bg-[var(--color-background)]">
       <Navbar user={session.user} />
       
       <main className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         <div className="mb-12 flex justify-between items-center flex-wrap gap-4">
           <div>
-            <h1 className="text-[32px] font-semibold text-black dark:text-white tracking-tight">
+            <h1 className="text-[34px] font-semibold text-[var(--color-text-primary)] tracking-tight">
               Trainer Dashboard
             </h1>
-            <p className="text-gray-500 dark:text-gray-500 mt-2 text-[15px]">
+            <p className="text-[var(--color-text-secondary)] mt-2 text-[15px]">
               Manage your clients and workout programs
             </p>
           </div>
@@ -32,14 +32,14 @@ export default async function TrainerDashboard() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <Card>
             <CardContent>
-              <div className="text-center py-4">
-                <div className="text-[48px] font-semibold text-black dark:text-white tracking-tight leading-none">
+              <div className="text-center py-6">
+                <div className="text-[56px] font-semibold text-[var(--color-text-primary)] tracking-tight leading-none">
                   {clients.length}
                 </div>
-                <div className="text-gray-500 dark:text-gray-500 mt-3 text-[13px] uppercase tracking-wider">
+                <div className="text-[var(--color-text-secondary)] mt-4 text-[13px] uppercase tracking-wider font-medium">
                   Active Clients
                 </div>
               </div>
@@ -47,11 +47,11 @@ export default async function TrainerDashboard() {
           </Card>
           <Card>
             <CardContent>
-              <div className="text-center py-4">
-                <div className="text-[48px] font-semibold text-black dark:text-white tracking-tight leading-none">
+              <div className="text-center py-6">
+                <div className="text-[56px] font-semibold text-[var(--color-text-primary)] tracking-tight leading-none">
                   {programs.length}
                 </div>
-                <div className="text-gray-500 dark:text-gray-500 mt-3 text-[13px] uppercase tracking-wider">
+                <div className="text-[var(--color-text-secondary)] mt-4 text-[13px] uppercase tracking-wider font-medium">
                   Workout Programs
                 </div>
               </div>
@@ -71,8 +71,8 @@ export default async function TrainerDashboard() {
           </CardHeader>
           <CardContent>
             {programs.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-600 dark:text-gray-400 mb-4">No programs yet.</p>
+              <div className="text-center py-12">
+                <p className="text-[var(--color-text-secondary)] mb-6 text-[15px]">No programs yet.</p>
                 <Link href="/trainer/programs/new">
                   <Button>Create Your First Program</Button>
                 </Link>
@@ -83,14 +83,14 @@ export default async function TrainerDashboard() {
                   const client = clients.find(c => c.userId === program.clientId);
                   return (
                     <Link key={program.workoutProgramId} href={`/trainer/programs/${program.workoutProgramId}`}>
-                      <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                      <div className="p-5 border border-[var(--color-border)] rounded-[var(--radius-md)] hover:bg-[var(--color-hover)] transition-all duration-200">
+                        <h4 className="font-semibold text-[var(--color-text-primary)] mb-2 text-[16px]">
                           {program.name || 'Untitled Program'}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
+                        <p className="text-[14px] text-[var(--color-text-secondary)] mb-3 line-clamp-2">
                           {program.description || 'No description'}
                         </p>
-                        <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-500">
+                        <div className="flex justify-between items-center text-[12px] text-[var(--color-text-tertiary)]">
                           <span>{program.exercises?.length || 0} exercises</span>
                           <span>{client ? `${client.firstName} ${client.lastName}` : 'Unassigned'}</span>
                         </div>
@@ -110,8 +110,8 @@ export default async function TrainerDashboard() {
           </CardHeader>
           <CardContent>
             {clients.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-600 dark:text-gray-400 mb-4">No clients assigned yet.</p>
+              <div className="text-center py-12">
+                <p className="text-[var(--color-text-secondary)] mb-6 text-[15px]">No clients assigned yet.</p>
                 <Link href="/trainer/clients/new">
                   <Button>Add Your First Client</Button>
                 </Link>
@@ -120,24 +120,24 @@ export default async function TrainerDashboard() {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Name</th>
-                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Email</th>
-                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Programs</th>
+                    <tr className="border-b border-[var(--color-border)]">
+                      <th className="text-left py-4 px-4 text-[13px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">Name</th>
+                      <th className="text-left py-4 px-4 text-[13px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">Email</th>
+                      <th className="text-left py-4 px-4 text-[13px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">Programs</th>
                     </tr>
                   </thead>
                   <tbody>
                     {clients.map((client) => {
                       const clientPrograms = programs.filter(p => p.clientId === client.userId);
                       return (
-                        <tr key={client.userId} className="border-b border-gray-100 dark:border-gray-800">
-                          <td className="py-3 px-4 text-gray-900 dark:text-white">
+                        <tr key={client.userId} className="border-b border-[var(--color-border-subtle)]">
+                          <td className="py-4 px-4 text-[var(--color-text-primary)] text-[15px]">
                             {client.firstName} {client.lastName}
                           </td>
-                          <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {client.email}
                           </td>
-                          <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {clientPrograms.length}
                           </td>
                         </tr>

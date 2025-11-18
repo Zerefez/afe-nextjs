@@ -37,7 +37,7 @@ function SortHeader({
   return (
     <th
       onClick={() => onSort(field)}
-      className="text-left py-3 px-4 text-[13px] font-medium text-gray-500 dark:text-gray-500 uppercase tracking-wider cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+      className="text-left py-4 px-4 text-[13px] font-medium text-[var(--color-text-secondary)] uppercase tracking-wider cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
     >
       {label}
       {arrow}
@@ -155,8 +155,8 @@ export default function ManagerDashboard() {
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
-        <div className="text-center text-gray-500">Loading...</div>
+      <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center">
+        <div className="text-center text-[var(--color-text-secondary)] text-[15px]">Loading...</div>
       </div>
     );
   }
@@ -165,16 +165,16 @@ export default function ManagerDashboard() {
   const sortedClients = sortData(data.clients, clientSort, data.trainers);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
+    <div className="min-h-screen bg-[var(--color-background)]">
       <Navbar user={data.user} />
 
       <main className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         <div className="mb-12 flex justify-between items-center">
           <div>
-            <h1 className="text-[32px] font-semibold text-black dark:text-white tracking-tight">
+            <h1 className="text-[34px] font-semibold text-[var(--color-text-primary)] tracking-tight">
               Manager Dashboard
             </h1>
-            <p className="text-gray-500 dark:text-gray-500 mt-2 text-[15px]">
+            <p className="text-[var(--color-text-secondary)] mt-2 text-[15px]">
               Manage trainers and system users
             </p>
           </div>
@@ -184,14 +184,14 @@ export default function ManagerDashboard() {
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <Card>
             <CardContent>
-              <div className="text-center py-4">
-                <div className="text-[48px] font-semibold text-black dark:text-white tracking-tight leading-none">
+              <div className="text-center py-6">
+                <div className="text-[56px] font-semibold text-[var(--color-text-primary)] tracking-tight leading-none">
                   {data.stats.trainers}
                 </div>
-                <div className="text-gray-500 dark:text-gray-500 mt-3 text-[13px] uppercase tracking-wider">
+                <div className="text-[var(--color-text-secondary)] mt-4 text-[13px] uppercase tracking-wider font-medium">
                   Personal Trainers
                 </div>
               </div>
@@ -199,11 +199,11 @@ export default function ManagerDashboard() {
           </Card>
           <Card>
             <CardContent>
-              <div className="text-center py-4">
-                <div className="text-[48px] font-semibold text-black dark:text-white tracking-tight leading-none">
+              <div className="text-center py-6">
+                <div className="text-[56px] font-semibold text-[var(--color-text-primary)] tracking-tight leading-none">
                   {data.stats.clients}
                 </div>
-                <div className="text-gray-500 dark:text-gray-500 mt-3 text-[13px] uppercase tracking-wider">
+                <div className="text-[var(--color-text-secondary)] mt-4 text-[13px] uppercase tracking-wider font-medium">
                   Clients
                 </div>
               </div>
@@ -211,11 +211,11 @@ export default function ManagerDashboard() {
           </Card>
           <Card>
             <CardContent>
-              <div className="text-center py-4">
-                <div className="text-[48px] font-semibold text-black dark:text-white tracking-tight leading-none">
+              <div className="text-center py-6">
+                <div className="text-[56px] font-semibold text-[var(--color-text-primary)] tracking-tight leading-none">
                   {data.stats.total}
                 </div>
-                <div className="text-gray-500 dark:text-gray-500 mt-3 text-[13px] uppercase tracking-wider">
+                <div className="text-[var(--color-text-secondary)] mt-4 text-[13px] uppercase tracking-wider font-medium">
                   Total Users
                 </div>
               </div>
@@ -230,12 +230,12 @@ export default function ManagerDashboard() {
           </CardHeader>
           <CardContent>
             {data.trainers.length === 0 ? (
-              <p className="text-gray-500 dark:text-gray-500 text-[15px]">No trainers yet.</p>
+              <p className="text-[var(--color-text-secondary)] text-[15px]">No trainers yet.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <tr className="border-b border-[var(--color-border)]">
                       <SortHeader
                         label="Name"
                         field="name"
@@ -262,14 +262,14 @@ export default function ManagerDashboard() {
                         c => c.personalTrainerId === trainer.userId
                       );
                       return (
-                        <tr key={trainer.userId} className="border-b border-gray-100 dark:border-gray-900">
-                          <td className="py-4 px-4 text-black dark:text-white text-[15px]">
+                        <tr key={trainer.userId} className="border-b border-[var(--color-border-subtle)]">
+                          <td className="py-4 px-4 text-[var(--color-text-primary)] text-[15px]">
                             {trainer.firstName} {trainer.lastName}
                           </td>
-                          <td className="py-4 px-4 text-gray-600 dark:text-gray-400 text-[15px]">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {trainer.email}
                           </td>
-                          <td className="py-4 px-4 text-gray-600 dark:text-gray-400 text-[15px]">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {trainerClients.length}
                           </td>
                         </tr>
@@ -289,12 +289,12 @@ export default function ManagerDashboard() {
           </CardHeader>
           <CardContent>
             {data.clients.length === 0 ? (
-              <p className="text-gray-500 dark:text-gray-500 text-[15px]">No clients yet.</p>
+              <p className="text-[var(--color-text-secondary)] text-[15px]">No clients yet.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <tr className="border-b border-[var(--color-border)]">
                       <SortHeader
                         label="Name"
                         field="name"
@@ -321,14 +321,14 @@ export default function ManagerDashboard() {
                         t => t.userId === client.personalTrainerId
                       );
                       return (
-                        <tr key={client.userId} className="border-b border-gray-100 dark:border-gray-900">
-                          <td className="py-4 px-4 text-black dark:text-white text-[15px]">
+                        <tr key={client.userId} className="border-b border-[var(--color-border-subtle)]">
+                          <td className="py-4 px-4 text-[var(--color-text-primary)] text-[15px]">
                             {client.firstName} {client.lastName}
                           </td>
-                          <td className="py-4 px-4 text-gray-600 dark:text-gray-400 text-[15px]">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {client.email}
                           </td>
-                          <td className="py-4 px-4 text-gray-600 dark:text-gray-400 text-[15px]">
+                          <td className="py-4 px-4 text-[var(--color-text-secondary)] text-[15px]">
                             {trainer
                               ? `${trainer.firstName} ${trainer.lastName}`
                               : 'N/A'}

@@ -107,7 +107,7 @@ export default function CreateProgramPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black p-4">
+    <div className="min-h-screen bg-[var(--color-background)] p-4">
       <div className="max-w-4xl mx-auto py-8">
         <div className="mb-6">
           <Link href="/trainer/programs">
@@ -150,9 +150,9 @@ export default function CreateProgramPage() {
                 ))}
               </Select>
 
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div className="border-t border-[var(--color-border)] pt-6">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-[18px] font-semibold text-[var(--color-text-primary)]">
                     Exercises
                   </h3>
                   <Button type="button" variant="secondary" size="sm" onClick={addExercise}>
@@ -161,15 +161,15 @@ export default function CreateProgramPage() {
                 </div>
 
                 {exercises.length === 0 ? (
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  <p className="text-[var(--color-text-secondary)] text-[14px]">
                     No exercises added yet. Click "Add Exercise" to get started.
                   </p>
                 ) : (
                   <div className="space-y-4">
                     {exercises.map((exercise, index) => (
-                      <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                      <div key={index} className="p-5 border border-[var(--color-border)] rounded-[var(--radius-md)]">
                         <div className="flex justify-between items-start mb-3">
-                          <h4 className="font-medium text-gray-900 dark:text-white">
+                          <h4 className="font-medium text-[var(--color-text-primary)] text-[16px]">
                             Exercise {index + 1}
                           </h4>
                           <Button
@@ -226,8 +226,8 @@ export default function CreateProgramPage() {
               </div>
 
               {error && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                  <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+                <div className="p-4 bg-[var(--color-surface-elevated)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
+                  <p className="text-[13px] text-[var(--color-text-primary)]">{error}</p>
                 </div>
               )}
 

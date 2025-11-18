@@ -152,8 +152,8 @@ export default function ExerciseManager({ programId, initialExercises }: Exercis
   // Empty state
   if (exercises.length === 0 && !isAdding) {
     return (
-      <div className="text-center py-8">
-        <p className="text-gray-600 dark:text-gray-400 mb-4">No exercises yet</p>
+      <div className="text-center py-12">
+        <p className="text-[var(--color-text-secondary)] mb-6 text-[15px]">No exercises yet</p>
         <Button onClick={() => setIsAdding(true)}>Add First Exercise</Button>
       </div>
     );
@@ -200,7 +200,7 @@ export default function ExerciseManager({ programId, initialExercises }: Exercis
 function ExerciseCard({ exercise, isEditing, formData, loading, onEdit, onDelete, onSave, onCancel, onFormChange }: ExerciseCardProps) {
   if (isEditing) {
     return (
-      <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+      <div className="p-5 border border-[var(--color-border)] rounded-[var(--radius-md)]">
         <ExerciseForm
           formData={formData}
           loading={loading}
@@ -213,16 +213,16 @@ function ExerciseCard({ exercise, isEditing, formData, loading, onEdit, onDelete
   }
 
   return (
-    <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <div className="p-5 border border-[var(--color-border)] rounded-[var(--radius-md)]">
               <div className="flex justify-between items-start mb-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white">{exercise.name}</h4>
+                <h4 className="font-semibold text-[var(--color-text-primary)] text-[16px]">{exercise.name}</h4>
                 <div className="flex gap-2">
           <Button onClick={() => onEdit(exercise)} variant="ghost" size="sm">Edit</Button>
           <Button onClick={() => onDelete(exercise.exerciseId)} variant="danger" size="sm">Delete</Button>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{exercise.description}</p>
-              <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-500">
+              <p className="text-[14px] text-[var(--color-text-secondary)] mb-3">{exercise.description}</p>
+              <div className="flex gap-4 text-[13px] text-[var(--color-text-tertiary)]">
                 {exercise.sets && <span>Sets: {exercise.sets}</span>}
                 {exercise.repetitions && <span>Reps: {exercise.repetitions}</span>}
                 {exercise.time && <span>Time: {exercise.time}</span>}
@@ -236,11 +236,11 @@ function ExerciseForm({ formData, loading, title, onSave, onCancel, onFormChange
     onFormChange({ ...formData, [field]: value });
   };
 
-  const formClass = title ? "p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg" : "";
+  const formClass = title ? "p-5 border-2 border-dashed border-[var(--color-border)] rounded-[var(--radius-md)]" : "";
 
   return (
     <div className={formClass}>
-      {title && <h4 className="font-semibold mb-3 text-gray-900 dark:text-white">{title}</h4>}
+      {title && <h4 className="font-semibold mb-4 text-[var(--color-text-primary)] text-[16px]">{title}</h4>}
           <div className="space-y-3">
             <Input
               label="Name"

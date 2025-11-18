@@ -12,19 +12,19 @@ export function Button({
   children, 
   ...props 
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:focus:ring-white disabled:opacity-40 disabled:cursor-not-allowed';
+  const baseStyles = 'font-medium transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed';
   
   const variantStyles = {
-    primary: 'bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200',
-    secondary: 'bg-white text-black border border-gray-200 hover:bg-gray-50 dark:bg-black dark:text-white dark:border-gray-800 dark:hover:bg-gray-900',
-    danger: 'bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200',
-    ghost: 'bg-transparent text-black hover:bg-gray-100 dark:text-white dark:hover:bg-gray-900',
+    primary: 'bg-[var(--color-button-primary-bg)] text-[var(--color-button-primary-text)] hover:bg-[var(--color-button-primary-hover)] focus:ring-[var(--color-focus)] rounded-[var(--radius-md)]',
+    secondary: 'bg-[var(--color-button-secondary-bg)] text-[var(--color-button-secondary-text)] border border-[var(--color-border)] hover:bg-[var(--color-button-secondary-hover)] focus:ring-[var(--color-focus)] rounded-[var(--radius-md)]',
+    danger: 'bg-[var(--color-button-primary-bg)] text-[var(--color-button-primary-text)] hover:bg-[var(--color-button-primary-hover)] focus:ring-[var(--color-focus)] rounded-[var(--radius-md)]',
+    ghost: 'bg-transparent text-[var(--color-text-primary)] hover:bg-[var(--color-button-ghost-hover)] focus:ring-[var(--color-focus)] rounded-[var(--radius-md)]',
   };
   
   const sizeStyles = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-5 py-2.5 text-[15px]',
-    lg: 'px-7 py-3.5 text-[17px]',
+    sm: 'px-4 py-2 text-[13px]',
+    md: 'px-6 py-3 text-[15px]',
+    lg: 'px-8 py-4 text-[17px]',
   };
 
   return (

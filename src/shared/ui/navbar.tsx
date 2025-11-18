@@ -34,24 +34,24 @@ export function Navbar({ user }: NavbarProps) {
   };
 
   return (
-    <nav className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
+    <nav className="bg-[var(--color-surface)] border-b border-[var(--color-border)] backdrop-blur-lg">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-[4.5rem]">
           <div className="flex items-center">
             <Link 
               href={getDashboardLink()} 
-              className="text-[17px] font-semibold text-black dark:text-white tracking-tight hover:opacity-70 transition-opacity"
+              className="text-[19px] font-semibold text-[var(--color-text-primary)] tracking-tight hover:opacity-60 transition-opacity duration-200"
             >
               Fitness
             </Link>
           </div>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-8">
             <div className="flex flex-col items-end">
-              <span className="text-[13px] font-medium text-black dark:text-white">
+              <span className="text-[14px] font-medium text-[var(--color-text-primary)]">
                 {user.firstName} {user.lastName}
               </span>
-              <span className="text-[11px] text-gray-500 dark:text-gray-500 uppercase tracking-wider">
+              <span className="text-[11px] text-[var(--color-text-tertiary)] uppercase tracking-wider font-medium">
                 {user.accountType}
               </span>
             </div>

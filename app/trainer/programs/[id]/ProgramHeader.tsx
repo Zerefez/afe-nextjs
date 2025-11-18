@@ -22,7 +22,7 @@ export default function ProgramHeader({ programId, initialProgram, clients, assi
           <div>
             <CardTitle>{program.name || 'Untitled Program'}</CardTitle>
             {client && (
-              <p className="text-sm text-blue-600 dark:text-blue-400 mt-2">
+              <p className="text-[14px] text-[var(--color-text-primary)] mt-2 font-medium">
                 Assigned to: {client.firstName} {client.lastName}
               </p>
             )}
@@ -36,7 +36,7 @@ export default function ProgramHeader({ programId, initialProgram, clients, assi
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-[var(--color-text-secondary)] text-[15px]">
           {program.description || 'No description provided'}
         </p>
       </CardContent>

@@ -10,10 +10,10 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
   const { program } = await getClientProgramDetails(programId, token);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black">
+    <div className="min-h-screen bg-[var(--color-background)]">
       <Navbar user={session.user} />
       
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-5xl mx-auto px-6 lg:px-8 py-8">
         <div className="mb-6">
           <Link href="/client/dashboard">
             <Button variant="ghost" size="sm">← Back to Dashboard</Button>
@@ -25,7 +25,7 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
             <CardTitle>{program.name || 'Workout Program'}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-[var(--color-text-secondary)] text-[15px]">
               {program.description || 'No description provided'}
             </p>
           </CardContent>
@@ -37,36 +37,36 @@ export default async function ClientProgramDetailPage({ params }: { params: Prom
           </CardHeader>
           <CardContent>
             {!program.exercises || program.exercises.length === 0 ? (
-              <p className="text-gray-600 dark:text-gray-400 text-center py-8">
+              <p className="text-[var(--color-text-secondary)] text-center py-12 text-[15px]">
                 No exercises in this program yet.
               </p>
             ) : (
               <div className="space-y-4">
                 {program.exercises.map((exercise, index) => (
-                  <div key={exercise.exerciseId} className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black">
+                  <div key={exercise.exerciseId} className="p-6 border border-[var(--color-border)] rounded-[var(--radius-md)] bg-[var(--color-card-bg)]">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-[18px] font-semibold text-[var(--color-text-primary)]">
                         {index + 1}. {exercise.name}
                       </h3>
                       <div className="flex gap-2 flex-wrap justify-end">
                         {exercise.sets && (
-                          <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] px-3 py-1 rounded-[var(--radius-sm)] text-[13px] font-medium">
                             {exercise.sets} Sets
                           </span>
                         )}
                         {exercise.repetitions && (
-                          <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] px-3 py-1 rounded-[var(--radius-sm)] text-[13px] font-medium">
                             {exercise.repetitions} Reps
                           </span>
                         )}
                         {exercise.time && (
-                          <span className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] px-3 py-1 rounded-[var(--radius-sm)] text-[13px] font-medium">
                             {exercise.time}
                           </span>
                         )}
                       </div>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="text-[var(--color-text-secondary)] leading-relaxed text-[14px]">
                       {exercise.description || 'No description provided'}
                     </p>
                   </div>
