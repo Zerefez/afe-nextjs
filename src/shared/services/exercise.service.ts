@@ -23,6 +23,6 @@ export const exerciseService = {
     apiClient.put<void>(`/api/Exercises/${id}`, exercise, token),
 
   delete: (id: number, token: string) =>
-    apiClient.delete<void>(`/api/Exercises/${id}`, token),
+    apiClient.delete<void>(`/api/Exercises/${id}`, token), 
 };
 
