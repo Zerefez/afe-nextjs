@@ -10,7 +10,7 @@ export interface Exercise {
   repetitions?: number;
   time?: string;
   workoutProgramId?: number;
-  personalTrainerId?: number;
+  personalTrainerId?: number | null;
 }
 
 export interface WorkoutProgram {
